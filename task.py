@@ -13,7 +13,13 @@ $ ./task report               # Statistics\n"""
     sys.stdout.buffer.write(message.encode('utf8'))
 
 
-def add(priority, message):
+def add(priority: int, message: str):
+    """Add a new item with priority in task.txt
+
+    Args:
+        priority (int): Integer used for index
+        message (str): A string used for text
+    """
     message = ' '.join(message)
     if os.path.isfile('task.txt'):
         with open('task.txt', 'r') as original_f:
@@ -27,6 +33,8 @@ def add(priority, message):
 
 
 def ls():
+    """Show sorted tasks by priority in ascending order
+    """
     if os.path.isfile('task.txt'):
         with open('task.txt', 'r') as f:
             data = f.readlines()
@@ -44,6 +52,11 @@ def ls():
 
 
 def delete(index: int):
+    """Delete the incomplete item with the given index
+
+    Args:
+        index (int): Integer used for index
+    """
     if os.path.isfile('task.txt'):
         with open('task.txt', 'r') as f:
             data = f.readlines()
@@ -61,7 +74,13 @@ def delete(index: int):
         sys.stdout.buffer.write("Error: task with index #{} does not exist. Nothing deleted.".format(index).encode('utf8'))
 
 
-def done(index):
+def done(index: int):
+    """Mark the incomplete item with the given index as complete and move item from
+    task.txt to completed.txt
+
+    Args:
+        index (int): Integer used for index
+    """
     if os.path.isfile('task.txt'):
         with open('task.txt', 'r') as todo_file:
             todo_data = todo_file.readlines()
@@ -87,6 +106,8 @@ def done(index):
 
 
 def report():
+    """Statistics
+    """
     todo_count = 0
     count_done = 0
     if os.path.isfile('task.txt'):
